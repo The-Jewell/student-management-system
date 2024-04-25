@@ -21,11 +21,19 @@
     <h1>Student Management Dashboard</h1>
     <div id="student-form">
         <!-- Form for creating/updating students -->
-        <input type="text" id="name" placeholder="Name">
-        <input type="text" id="dateOfBirth" placeholder="Age">
-        <input type="text" id="grade" placeholder="Grade">
+        <input type="text" id="name" placeholder="First and Last Name">
+        <input type="text" id="dateOfBirth" placeholder="DOB YYY-MM-DD">
+        <input type="text" id="grade" placeholder="Grade - A-F">
         <input type="email" id="email" placeholder="Email">
         <button onclick="submitStudent()">Submit</button>
+    </div>
+    <div id="editForm" style="display:none;">
+        <input type="hidden" id="editId">
+        <input type="text" id="editName" placeholder="Name">
+        <input type="text" id="editDateOfBirth" placeholder="Date of Birth">
+        <input type="text" id="editGrade" placeholder="Grade">
+        <input type="text" id="editEmail" placeholder="Email">
+        <button onclick="updateStudent()">Save Changes</button>
     </div>
     <div id="students-list">
         <!-- List of students-->
