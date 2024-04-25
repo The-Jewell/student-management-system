@@ -1,11 +1,53 @@
-#students-list {
-    max-height: 300px;
-    overflow-y: auto;
+/* Base color definitions */
+:root {
+    --primary-color: #6a11cb;
+    --secondary-color: #2575fc;
+    --light-color: #f4f4f9;
+    --dark-color: #333;
 }
 
-table {
+/* Universal base styles */
+body, html {
+    height: 100vh; /* Full viewport height */
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif; /* Unified font family */
+    background: linear-gradient(to right, #f8f8f8, #e8e8e8); /* Subtle gradient background */
+    color: var(--dark-color); /* Use of CSS variable for text color */
+}
+
+/* Button styling */
+button {
+    background: var(--secondary-color);
+    color: var(--light-color);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin: 5px; /* Spacing between buttons, adjusted for all buttons */
+}
+
+button:hover {
+    background: var(--primary-color);
+}
+
+/* Container and text alignment */
+.container {
+    width: 100%;
+    max-width: 960px;
+    text-align: center;
+    margin-top: 20px; /* Adjusted once, remove if not needed */
+}
+
+/* Table and list styling */
+table, #students-list {
     width: 100%;
     border-collapse: collapse;
+    max-height: 300px; /* Applied to the list for scroll */
+    overflow-y: auto; /* Scroll on Y for list */
 }
 
 th, td {
@@ -18,8 +60,19 @@ th {
     background-color: #f4f4f4;
 }
 
-button {
-    padding: 5px 10px;
-    margin: 2px;
-    cursor: pointer;
+@media (max-width: 768px) {
+    .container {
+        margin-top: 10px; /* Smaller margin for smaller screens */
+    }
+    button {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+    h1 {
+        font-size: 2rem; /* Smaller font for headers on small screens */
+    }
+    table {
+        overflow-x: auto; /* Horizontal scroll for tables on small screens */
+        display: block;
+    }
 }
