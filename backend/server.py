@@ -31,43 +31,45 @@ def save_students(students):
     with open('backend/students.json', 'w') as file:
         json.dump(students, file, indent=4)
 
-@app.route('/students', methods=['GET', 'POST'])
-def manage_students():
-    if request.method == 'GET':
-        students = load_students()
-        return jsonify(students)
-    elif request.method == 'POST':
-        student_data = request.get_json()
-        students = load_students()
-        if students:
-            max_id = max(student['id'] for student in students)
-            student_data['id'] = str(int(max_id) + 1)  # Generate next ID as string
-        else:
-            student_data['id'] = '1'  # Start IDs from '1' if list is empty
-        students.append(student_data)
-        save_students(students)
-        return jsonify(student_data), 201
-
-@app.route('/students/<student_id>', methods=['DELETE', 'PUT'])
-def manage_student(student_id):
+@app.route('/students', methods=['GET'])
+def get_students():
     students = load_students()
-    student_data = request.get_json() if request.method == 'PUT' else None
-    student_found = None
+    return jsonify(students)
+
+@app.route('/students', methods=['POST'])
+def create_student():
+    student_data = request.get_json()
+    students = load_students()
+    if students:
+        max_id = max(student['id'] for student in students)
+        student_data['id'] = str(int(max_id) + 1)  # Generate next ID as string
+    else:
+        student_data['id'] = '1'  # Start IDs from '1' if list is empty
+    students.append(student_data)
+    save_students(students)
+    return jsonify(student_data), 201
+
+@app.route('/students/<student_id>', methods=['PUT'])
+def update_student(student_id):
+    students = load_students()
+    student_data = request.get_json()
+    student_found = False
     for student in students:
         if student['id'] == student_id:
-            if request.method == 'PUT':
-                student.update(student_data)
-            student_found = student
+            student.update(student_data)
+            student_found = True
             break
     if not student_found:
         return jsonify({'message': 'Student not found'}), 404
-    if request.method == 'PUT':
-        save_students(students)
-        return jsonify({'message': 'Student updated successfully'}), 200
-    elif request.method == 'DELETE':
-        students = [student for student in students if student['id'] != student_id]
-        save_students(students)
-        return jsonify({'message': 'Student deleted successfully'}), 200
+    save_students(students)
+    return jsonify({'message': 'Student updated successfully'}), 200
+
+@app.route('/students/<student_id>', methods=['DELETE'])
+def delete_student(student_id):
+    students = load_students()
+    students = [student for student in students if student['id'] != student_id]
+    save_students(students)
+    return jsonify({'message': 'Student deleted successfully'}), 200
 
 if __name__ == '__main__':
     app.run(port=8000, debug=True)

@@ -3,7 +3,7 @@
         "id": "1",
         "name": "Alice Johnson",
         "dateOfBirth": "2001-04-12",
-        "grade": "A",
+        "grade": "B",
         "email": "alice.johnson@example.com"
     },
     {
@@ -135,7 +135,7 @@
     {
         "name": "Joseph Jewell",
         "dateOfBirth": "1989-10-01",
-        "grade": "B",
+        "grade": "A",
         "email": "test@test.com",
         "id": "10"
     }
