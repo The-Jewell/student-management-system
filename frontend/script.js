@@ -78,7 +78,8 @@ function editStudent(studentId) {
     console.log("Edit student called with ID:", studentId);  // This should log the ID
     fetchData('/students')
         .then(students => {
-            const student = students.find(s => s.id === studentId);
+            const student = students.find(s => String(s.id) === String(studentId));
+
             if (student) {
                 document.getElementById('editId').value = student.id;
                 document.getElementById('editName').value = student.name;
