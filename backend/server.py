@@ -4,10 +4,10 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.exc import SQLAlchemyError
 
-import os
 
 # Database setup
-DATABASE_URI = 'postgresql+psycopg2://my_user:my_password@localhost/student_management'
+import os
+DATABASE_URI = os.environ.get('postgresql-shallow-80766', 'postgresql+psycopg2://my_user:my_password@localhost/student_management')
 engine = create_engine(DATABASE_URI, echo=True)
 session_factory = sessionmaker(bind=engine)
 Session = scoped_session(session_factory)
